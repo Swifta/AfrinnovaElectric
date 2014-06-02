@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:axis2="http://ws/rpc/schoolfees/api/afrinnova/com/" xmlns:ns1="http://ws/rpc/schoolfees/api/afrinnova/com/xsd" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ns0="http://response.schoolfees.api.afrinnova.com/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://ws/rpc/schoolfees/api/afrinnova/com/">
+    <wsdl:types>
+        <xs:schema xmlns:ax21="http://response.schoolfees.api.afrinnova.com/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://response.schoolfees.api.afrinnova.com/xsd">
+            <xs:complexType name="GeneralResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="appVersion" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="fundamoTransactionId" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="responseCode" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="responseMessage" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="thirdPartyAccountRef" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="TransactionResponse">
+                <xs:complexContent>
+                    <xs:extension base="ax21:GeneralResponse">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="token" nillable="true" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema xmlns:ns="http://ws/rpc/schoolfees/api/afrinnova/com/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://ws/rpc/schoolfees/api/afrinnova/com/xsd">
+            <xs:element name="receivePaymentConfirmation">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="payerAccountIdentifier" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="customerName" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="accountRef" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="amount" type="xs:double"/>
+                        <xs:element minOccurs="0" name="paymentRef" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="transactionType" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="fundamoTransactionID" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="thirdPartyTransactionID" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="fundamoUserId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="fundamoPassword" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="statusCode" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="appVersion" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="receivePaymentConfirmationResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ns0:TransactionResponse"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="retryPaymentConfirmation">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="string" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="string1" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="string2" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="string3" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="string4" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="string5" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="string6" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="string7" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="retryPaymentConfirmationResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ns0:TransactionResponse"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="retrieveResponseDescription">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="responseCode" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="retrieveResponseDescriptionResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="retrieveResponseDescriptionRequest">
+        <wsdl:part name="parameters" element="ns1:retrieveResponseDescription"/>
+    </wsdl:message>
+    <wsdl:message name="retrieveResponseDescriptionResponse">
+        <wsdl:part name="parameters" element="ns1:retrieveResponseDescriptionResponse"/>
+    </wsdl:message>
+    <wsdl:message name="receivePaymentConfirmationRequest">
+        <wsdl:part name="parameters" element="ns1:receivePaymentConfirmation"/>
+    </wsdl:message>
+    <wsdl:message name="receivePaymentConfirmationResponse">
+        <wsdl:part name="parameters" element="ns1:receivePaymentConfirmationResponse"/>
+    </wsdl:message>
+    <wsdl:message name="retryPaymentConfirmationRequest">
+        <wsdl:part name="parameters" element="ns1:retryPaymentConfirmation"/>
+    </wsdl:message>
+    <wsdl:message name="retryPaymentConfirmationResponse">
+        <wsdl:part name="parameters" element="ns1:retryPaymentConfirmationResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="FundamoPaymentPortType">
+        <wsdl:operation name="retrieveResponseDescription">
+            <wsdl:input message="axis2:retrieveResponseDescriptionRequest" wsaw:Action="urn:retrieveResponseDescription"/>
+            <wsdl:output message="axis2:retrieveResponseDescriptionResponse" wsaw:Action="urn:retrieveResponseDescriptionResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="receivePaymentConfirmation">
+            <wsdl:input message="axis2:receivePaymentConfirmationRequest" wsaw:Action="urn:receivePaymentConfirmation"/>
+            <wsdl:output message="axis2:receivePaymentConfirmationResponse" wsaw:Action="urn:receivePaymentConfirmationResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="retryPaymentConfirmation">
+            <wsdl:input message="axis2:retryPaymentConfirmationRequest" wsaw:Action="urn:retryPaymentConfirmation"/>
+            <wsdl:output message="axis2:retryPaymentConfirmationResponse" wsaw:Action="urn:retryPaymentConfirmationResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="FundamoPaymentSOAP11Binding" type="axis2:FundamoPaymentPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="retrieveResponseDescription">
+            <soap:operation soapAction="urn:retrieveResponseDescription" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="receivePaymentConfirmation">
+            <soap:operation soapAction="urn:receivePaymentConfirmation" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="retryPaymentConfirmation">
+            <soap:operation soapAction="urn:retryPaymentConfirmation" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="FundamoPaymentSOAP12Binding" type="axis2:FundamoPaymentPortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="retrieveResponseDescription">
+            <soap12:operation soapAction="urn:retrieveResponseDescription" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="receivePaymentConfirmation">
+            <soap12:operation soapAction="urn:receivePaymentConfirmation" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="retryPaymentConfirmation">
+            <soap12:operation soapAction="urn:retryPaymentConfirmation" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="FundamoPaymentHttpBinding" type="axis2:FundamoPaymentPortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="retrieveResponseDescription">
+            <http:operation location="FundamoPayment/retrieveResponseDescription"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="retrieveResponseDescription"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="retrieveResponseDescription"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="receivePaymentConfirmation">
+            <http:operation location="FundamoPayment/receivePaymentConfirmation"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="receivePaymentConfirmation"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="receivePaymentConfirmation"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="retryPaymentConfirmation">
+            <http:operation location="FundamoPayment/retryPaymentConfirmation"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="retryPaymentConfirmation"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="retryPaymentConfirmation"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="FundamoPayment">
+        <wsdl:port name="FundamoPaymentSOAP11port_http" binding="axis2:FundamoPaymentSOAP11Binding">
+            <soap:address location="http://localhost:8080/axis2/services/FundamoPayment"/>
+        </wsdl:port>
+        <wsdl:port name="FundamoPaymentSOAP12port_http" binding="axis2:FundamoPaymentSOAP12Binding">
+            <soap12:address location="http://localhost:8080/axis2/services/FundamoPayment"/>
+        </wsdl:port>
+        <wsdl:port name="FundamoPaymentHttpport" binding="axis2:FundamoPaymentHttpBinding">
+            <http:address location="http://localhost:8080/axis2/services/FundamoPayment"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

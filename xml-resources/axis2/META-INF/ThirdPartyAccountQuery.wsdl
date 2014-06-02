@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:axis2="http://ws/rpc/schoolfees/api/afrinnova/com/" xmlns:ns1="http://ws/rpc/schoolfees/api/afrinnova/com/xsd" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ns0="http://response.schoolfees.api.afrinnova.com/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://ws/rpc/schoolfees/api/afrinnova/com/">
+    <wsdl:types>
+        <xs:schema xmlns:ax22="http://response.schoolfees.api.afrinnova.com/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://response.schoolfees.api.afrinnova.com/xsd">
+            <xs:complexType name="GeneralResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="appVersion" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="fundamoTransactionId" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="responseCode" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="responseMessage" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="thirdPartyAccountRef" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="AccountEnquiryResponse">
+                <xs:complexContent>
+                    <xs:extension base="ax22:GeneralResponse">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="amountDue" type="xs:long"/>
+                            <xs:element minOccurs="0" name="balance" type="xs:long"/>
+                            <xs:element minOccurs="0" name="minimumDue" type="xs:long"/>
+                            <xs:element minOccurs="0" name="textMessage" nillable="true" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema xmlns:ns="http://ws/rpc/schoolfees/api/afrinnova/com/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://ws/rpc/schoolfees/api/afrinnova/com/xsd">
+            <xs:element name="getAccountBalance">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="accountRef" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="messageId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="fundamoUserId" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="fundamoPassword" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="localeLanguage" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="localeCountry" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="appVersion" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getAccountBalanceResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ns0:AccountEnquiryResponse"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="getAccountBalanceRequest">
+        <wsdl:part name="parameters" element="ns1:getAccountBalance"/>
+    </wsdl:message>
+    <wsdl:message name="getAccountBalanceResponse">
+        <wsdl:part name="parameters" element="ns1:getAccountBalanceResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="ThirdPartyAccountQueryPortType">
+        <wsdl:operation name="getAccountBalance">
+            <wsdl:input message="axis2:getAccountBalanceRequest" wsaw:Action="urn:getAccountBalance"/>
+            <wsdl:output message="axis2:getAccountBalanceResponse" wsaw:Action="urn:getAccountBalanceResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ThirdPartyAccountQuerySOAP11Binding" type="axis2:ThirdPartyAccountQueryPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="getAccountBalance">
+            <soap:operation soapAction="urn:getAccountBalance" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="ThirdPartyAccountQuerySOAP12Binding" type="axis2:ThirdPartyAccountQueryPortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="getAccountBalance">
+            <soap12:operation soapAction="urn:getAccountBalance" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="ThirdPartyAccountQueryHttpBinding" type="axis2:ThirdPartyAccountQueryPortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="getAccountBalance">
+            <http:operation location="ThirdPartyAccountQuery/getAccountBalance"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="getAccountBalance"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="getAccountBalance"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="ThirdPartyAccountQuery">
+        <wsdl:port name="ThirdPartyAccountQuerySOAP11port_http" binding="axis2:ThirdPartyAccountQuerySOAP11Binding">
+            <soap:address location="http://localhost:8080/axis2/services/ThirdPartyAccountQuery"/>
+        </wsdl:port>
+        <wsdl:port name="ThirdPartyAccountQuerySOAP12port_http" binding="axis2:ThirdPartyAccountQuerySOAP12Binding">
+            <soap12:address location="http://localhost:8080/axis2/services/ThirdPartyAccountQuery"/>
+        </wsdl:port>
+        <wsdl:port name="ThirdPartyAccountQueryHttpport" binding="axis2:ThirdPartyAccountQueryHttpBinding">
+            <http:address location="http://localhost:8080/axis2/services/ThirdPartyAccountQuery"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

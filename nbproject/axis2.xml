@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<axis2 xmlns="http://www.netbeans.org/ns/axis2/1">
+    <service name="FundamoPayment">
+        <service-class>com.afrinnova.api.schoolfees.rpc.ws.FundamoPayment</service-class>
+        <generate-wsdl targetNamespace="http://ws/rpc/schoolfees/api/afrinnova/com/" schemaNamespace="http://ws/rpc/schoolfees/api/afrinnova/com/xsd"/>
+    </service>
+    <service name="ThirdPartyAccountQuery">
+        <service-class>com.afrinnova.api.schoolfees.rpc.ws.ThirdPartyAccountQuery</service-class>
+        <generate-wsdl targetNamespace="http://ws/rpc/schoolfees/api/afrinnova/com/" schemaNamespace="http://ws/rpc/schoolfees/api/afrinnova/com/xsd"/>
+    </service>
+</axis2>

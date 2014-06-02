@@ -1,0 +1,105 @@
+<ipayMsg time="2013-10-06 09:10:05 +0100" seqNum="00009" term="00001" client="MTNLonestar">
+    <elecMsg ver="1.3">
+        <vendReq>
+            <ref>075723568187</ref>
+            <amt cur="NGN">8000</amt>
+            <numTokens>1</numTokens>
+            <meter>12345678910</meter>
+            <payType>OTHER</payType>
+        </vendReq>
+    </elecMsg>
+</ipayMsg>
+<ipayMsg time="2013-10-06 09:10:05 +0100" seqNum="00009" term="00001" client="MTNLonestar">
+    <elecMsg ver="1.3">
+        <vendReq>
+            <ref>075723568187</ref>
+            <amt cur="NGN">8000</amt>
+            <numTokens>1</numTokens>
+            <meter>12345678910</meter>
+            <payType>OTHER</payType>
+        </vendReq>
+    </elecMsg>
+</ipayMsg>
+
+<ipayMsg time="2013-11-06 09:11:52 +0100" seqNum="00011" term="00001" client="MTNLonestar">
+    <elecMsg ver="1.3">
+        <vendReq>
+            <ref>458437209991</ref>
+            <amt cur="NGN">8000</amt>
+            <numTokens>1</numTokens>
+            <meter>12345678910</meter>
+            <payType>OTHER</payType>
+        </vendReq>
+    </elecMsg>
+</ipayMsg>
+<ipayMsg time="2013-11-06 09:11:52 +0100" seqNum="00011" term="00001" client="MTNLonestar">
+    <elecMsg ver="1.3">
+        <vendReq>
+            <ref>458437209991</ref>
+            <amt cur="NGN">8000</amt>
+            <numTokens>1</numTokens>
+            <meter>12345678910</meter>
+            <payType>OTHER</payType>
+        </vendReq>
+    </elecMsg>
+</ipayMsg>
+
+<ipayMsg client="MTNLonestar" term="00001" seqNum="00009" time="2013-06-06 10:10:09 +0200">
+    <elecMsg ver="2.26" finAdj="-8000">
+        <vendRes supGrpRef="100405" tariffIdx="52" keyRevNum="1" tokenTechCode="02" algCode="05" daysLastVend="19999">
+            <ref>075723568187</ref>
+            <res code="elec000">OK</res>
+            <util addr="59 WaterFront, Durban. 5899." taxRef="3988339883" distId="6004708001509">City of Cape Town</util>
+            <stdToken units="266.66666" amt="5053" tax="707" desc="Normal Sale" rctNum="576386817218">15327273296153621214</stdToken>
+            <bsstToken bsstDate="2013-06-06 10:10:09 +0200" units="50.0" amt="0" tax="0" desc="FBE Token">75782433663060444306</bsstToken>
+            <debt amt="1193" tax="167" rem="7700" desc="1122">Debt Recovery</debt>
+            <fixed amt="772" tax="108">Fixed</fixed>
+            <rtlrMsg>Hello Operator Message.</rtlrMsg>
+            <customerMsg>Good day dear customer. This is a test customer message from customer. We have vended a token for the customer. The message can be upto 160 characters long....</customerMsg>
+        </vendRes>
+    </elecMsg>
+</ipayMsg>
+<ipayMsg client="MTNLonestar" term="00001" seqNum="00009" time="2013-06-06 10:10:09 +0200">
+    <elecMsg ver="2.26" finAdj="-8000">
+        <vendRes supGrpRef="100405" tariffIdx="52" keyRevNum="1" tokenTechCode="02" algCode="05" daysLastVend="19999">
+            <ref>075723568187</ref>
+            <res code="elec000">OK</res>
+            <util addr="59 WaterFront, Durban. 5899." taxRef="3988339883" distId="6004708001509">City of Cape Town</util>
+            <stdToken units="266.66666" amt="5053" tax="707" desc="Normal Sale" rctNum="576386817218">15327273296153621214</stdToken>
+            <bsstToken bsstDate="2013-06-06 10:10:09 +0200" units="50.0" amt="0" tax="0" desc="FBE Token">75782433663060444306</bsstToken>
+            <debt amt="1193" tax="167" rem="7700" desc="1122">Debt Recovery</debt>
+            <fixed amt="772" tax="108">Fixed</fixed>
+            <rtlrMsg>Hello Operator Message.</rtlrMsg>
+            <customerMsg>Good day dear customer. This is a test customer message from customer. We have vended a token for the customer. The message can be upto 160 characters long....</customerMsg>
+        </vendRes>
+    </elecMsg>
+</ipayMsg>
+
+<ipayMsg client="MTNLonestar" term="00001" seqNum="00011" time="2013-06-06 10:11:56 +0200">
+    <elecMsg ver="2.26" finAdj="-8000">
+        <vendRes supGrpRef="100405" tariffIdx="52" keyRevNum="1" tokenTechCode="02" algCode="05" daysLastVend="19999">
+            <ref>458437209991</ref>
+            <res code="elec000">OK</res>
+            <util addr="59 WaterFront, Durban. 5899." taxRef="3988339883" distId="6004708001509">City of Cape Town</util>
+            <stdToken units="266.66666" amt="5053" tax="707" desc="Normal Sale" rctNum="854342793015">74000592968220984576</stdToken>
+            <debt amt="1193" tax="167" rem="7700" desc="1122">Debt Recovery</debt>
+            <fixed amt="772" tax="108">Fixed</fixed>
+            <rtlrMsg>Hello Operator Message.</rtlrMsg>
+            <customerMsg>Good day dear customer. This is a test customer message from customer. We have vended a token for the customer. The message can be upto 160 characters long....</customerMsg>
+        </vendRes>
+    </elecMsg>
+</ipayMsg>
+<ipayMsg client="MTNLonestar" term="00001" seqNum="00011" time="2013-06-06 10:11:56 +0200">
+    <elecMsg ver="2.26" finAdj="-8000">
+        <vendRes supGrpRef="100405" tariffIdx="52" keyRevNum="1" tokenTechCode="02" algCode="05" daysLastVend="19999">
+            <ref>458437209991</ref>
+            <res code="elec000">OK</res>
+            <util addr="59 WaterFront, Durban. 5899." taxRef="3988339883" distId="6004708001509">City of Cape Town</util>
+            <stdToken units="266.66666" amt="5053" tax="707" desc="Normal Sale" rctNum="854342793015">74000592968220984576</stdToken>
+            <debt amt="1193" tax="167" rem="7700" desc="1122">Debt Recovery</debt>
+            <fixed amt="772" tax="108">Fixed</fixed>
+            <rtlrMsg>Hello Operator Message.</rtlrMsg>
+            <customerMsg>Good day dear customer. This is a test customer message from customer. We have vended a token for the customer. The message can be upto 160 characters long....</customerMsg>
+        </vendRes>
+    </elecMsg>
+</ipayMsg>
