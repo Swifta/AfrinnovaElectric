@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 public class FundamoPayment implements IFundamoPayment {
 
     private static final Logger logger = Logger.getLogger("com.afrinnova.api.schoolfees.rpc.ws.FundamoPayment");
-    public String Statuscode = "01";
+    public String Statuscode = "01", extCode = "";
     GeneralResponse response = new GeneralResponse();
     public int seqCount = 0;
     private Constants constant = new Constants();
@@ -106,6 +106,7 @@ public class FundamoPayment implements IFundamoPayment {
 
             IpayMsg ipay = look.makePayments(transactionOb, seqCount);
             String statusMessage = "Successful\nToken(s) ";
+            String responseCode = "";
             logger.info("returned ipay after payments =====================================\n");
             if (ipay == null) {
                 statusMessage = "Unsuccessful and reversed!!!";
@@ -115,7 +116,8 @@ public class FundamoPayment implements IFundamoPayment {
                     if (ipay.getElecMsg() != null) {
                         VendRes vendRes = ipay.getElecMsg().getVendRes();
                         if (vendRes != null) {
-                            String responseCode = vendRes.getRes().getCode();
+                            responseCode = vendRes.getRes().getCode();
+                            extCode = vendRes.getRes().getExtCode();
                             if (responseCode.equalsIgnoreCase(constant.STATUS_OK)) {
                                 List<StdToken> stdTokens = vendRes.getStdToken();
                                 if (stdTokens != null) {
@@ -134,7 +136,8 @@ public class FundamoPayment implements IFundamoPayment {
                             VendRevRes vendRevRes = ipay.getElecMsg().getVendRevRes();
                             if (vendRevRes != null) {
                                 vendRes = vendRevRes.getVendRes();
-                                String responseCode = vendRevRes.getRes().getCode();
+                                responseCode = vendRevRes.getRes().getCode();
+                                extCode = vendRevRes.getRes().getExtCode();
                                 if (responseCode.equalsIgnoreCase(constant.STATUS_ESKOMO)) {
                                     statusMessage = "Reversal not supported.";
                                     List<StdToken> stdTokens = vendRes.getStdToken();
@@ -162,7 +165,9 @@ public class FundamoPayment implements IFundamoPayment {
             logger.info("Mobile Mobile call::::::Payment Added Successfully");
 
 
-            return new TransactionResponse(thirdPartyTransactionID, fundamoTransactionID, ResponseCode.CODE_01_OK, statusMessage, AccountProperties.APP_VERSION, null);
+
+
+            return new TransactionResponse(thirdPartyTransactionID, fundamoTransactionID, retrieveFundamoResponseCode(responseCode), statusMessage, AccountProperties.APP_VERSION, null);
 
 
         } catch (ServiceException se) {
@@ -176,78 +181,25 @@ public class FundamoPayment implements IFundamoPayment {
 
     }
 
+    public String retrieveFundamoResponseCode(String responseCode) {
+
+        responseCode = responseCode.trim();
+
+        if (responseCode.equalsIgnoreCase("elec000")) {
+            return ResponseCode.CODE_01_OK;
+        } else if (responseCode.equalsIgnoreCase("elec001")) {
+            if (extCode != null && extCode.equalsIgnoreCase("10071")) {
+                return ResponseCode.CODE_04_PAYMENT_BELOW_MIN;
+            } else {
+                return ResponseCode.CODE_100_GENERAL_FAILURE;
+            }
+        } else {
+            return ResponseCode.CODE_100_GENERAL_FAILURE;
+        }
+    }
+
     public String retrieveResponseDescription(String responseCode) {
-        /*   switch (responseCode.trim()) {
-         case "elec001":
-         return "General Error";
 
-         case "elec002":
-         return "Service not available";
-         case "elec003":
-         return "No record of previous transaction";
-
-         case "elec004":
-         return "Warning - reversals are not supported by the suppliers system";
-         case "elec010":
-         return "Unknown meter number";
-
-         case "elec011":
-         return "Meter is block";
-         case "elec012":
-         return "Too much debt";
-
-         case "elec013":
-         return "Invalid Amount";
-         case "elec014":
-         return "Invalid Number of Tokens";
-
-         case "elec015":
-         return "Amount too high";
-         case "elec016":
-         return "Amount too low";
-         case "elec017":
-         return "No free BSST token is due";
-
-         case "elec018":
-         return "Multiple tokens not supported";
-         case "elec019":
-         return "Already reversed";
-
-         case "elec020":
-         return "Transaction already completed";
-         case "elec021":
-         return "Duplicate meter number";
-
-         case "elec022":
-         return "Meter is blocked";
-         case "elec023":
-         return "Invalid PaymentType";
-
-         case "elec029":
-         return "Invalid replace reference";
-         case "elec030":
-         return "Invalid XmlVend Format";
-
-         case "elec031":
-         return "BSST token must be vended as part of sale";
-         case "elec032":
-         return "Update meter key";
-
-         case "elec033":
-         return "Track 2 meter mismatch";
-         case "elec034":
-         return "Test vend not supported";
-         case "elec900":
-         return "General system error";
-
-         case "elec901":
-         return "Unsupported message version numb";
-         case "elec902":
-         return "Invalid Reference";
-         default:
-         return "Unknown error";
-        
-         }*/
         responseCode = responseCode.trim();
 
         if (responseCode.equalsIgnoreCase("elec001")) {

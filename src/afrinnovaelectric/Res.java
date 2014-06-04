@@ -12,8 +12,10 @@ import javax.xml.bind.annotation.XmlValue;
  * @author princeyekaso
  */
 public class Res {
-    String code=null,value=null;
-@XmlAttribute
+
+    String code = null, extCode = null, value = null;
+
+    @XmlAttribute
     public String getCode() {
         return code;
     }
@@ -21,7 +23,17 @@ public class Res {
     public void setCode(String code) {
         this.code = code;
     }
-@XmlValue
+
+    @XmlAttribute
+    public String getExtCode() {
+        return extCode;
+    }
+
+    public void setExtCode(String extCode) {
+        this.extCode = extCode;
+    }
+
+    @XmlValue
     public String getValue() {
         return value;
     }
@@ -32,6 +44,6 @@ public class Res {
 
     @Override
     public String toString() {
-        return "Res{" + "code=" + code + ", value=" + value + '}';
+        return "Res{" + "code=" + code + ", extCode=" + extCode + ", value=" + value + '}';
     }
 }

@@ -137,7 +137,7 @@ public class AccountLookup {
             se.printStackTrace();
             throw new AccountDAOException("SQLException:" + se.getMessage());
         }
-        return rate;
+        return rate * 100;
     }
 
     public Double getCurrentExchangeRate() throws SQLException {

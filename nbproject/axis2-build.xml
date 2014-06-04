@@ -7,8 +7,11 @@
     <target name="java2wsdl-init" depends="init">
         <mkdir dir="${basedir}/xml-resources/axis2/META-INF"/>
         <taskdef name="java2wsdl" classname="org.apache.ws.java2wsdl.Java2WSDLTask">
-            <classpath path="${libs.axis2.classpath}"/>
-        </taskdef>
+            <classpath>
+                <pathelement location="${libs.axis2.classpath}"/>
+                <pathelement location="lib/axis2-1.3.jar"/>
+            </classpath>
+          </taskdef>
     </target>
     <target name="java2wsdl-check-FundamoPayment" depends="java2wsdl-init">
         <condition property="java2wsdl-check-FundamoPayment.notRequired">

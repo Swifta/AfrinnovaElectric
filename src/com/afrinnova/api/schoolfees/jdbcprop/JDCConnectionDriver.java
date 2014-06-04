@@ -35,11 +35,11 @@ public class JDCConnectionDriver implements Driver {
     @Override
     public Connection connect(String url, Properties props)
             throws SQLException {
-        
-        if (!url.startsWith(URL_PREFIX)){
+
+        if (!url.startsWith(URL_PREFIX)) {
             return null;
         }
-      
+
         return (Connection) pool.getConnection();
     }
 
@@ -68,7 +68,6 @@ public class JDCConnectionDriver implements Driver {
         return false;
     }
 
-    @Override
     public Logger getParentLogger() throws SQLFeatureNotSupportedException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
