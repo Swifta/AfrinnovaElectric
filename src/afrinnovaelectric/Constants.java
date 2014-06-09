@@ -17,6 +17,7 @@ public class Constants {
     public final String TXN_PENDING = "PENDING";
     public final String TXN_COMPLETE = "COMPLETE";
     public final String TXN_REVERSED = "REVERSED";
+    public final String TXN_FAILED = "FAILED";
     public final String VENDREQ = "VENDREQ";
     public final String VENDREVREQ = "VENDREVREQ";
     public final String VENDADVREQ = "VENDADVREQ";

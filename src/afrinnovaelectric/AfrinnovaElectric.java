@@ -206,11 +206,16 @@ public class AfrinnovaElectric {
 
     public IpayMsg generateSimpleVendRequest(String ref, TransactionOb transactionOb, AccountLookup lookup) {
         IpayMsg ipay = initializeDefaultIpayMsg();
+        Long convertedAmount = 0l;
+        try {
+            convertedAmount = dualCurrency.convert(transactionOb.getAmount());
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(AfrinnovaElectric.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
             //send request
             logger.info("inserting transactions....");
-
-            lookup.insertTransaction(transactionOb.getPayerAccountIdentifier(), transactionOb.getCustomerName(), transactionOb.getAcctref(), transactionOb.getAmount(), transactionOb.getPaymentRef(), transactionOb.getFundamoTransactionID(), ref, transactionOb.getStatuscode());
+            lookup.insertTransaction(transactionOb.getPayerAccountIdentifier(), transactionOb.getCustomerName(), transactionOb.getAcctref(), transactionOb.getAmount(), transactionOb.getPaymentRef(), transactionOb.getFundamoTransactionID(), ref, transactionOb.getStatuscode(), lookup.getExchangeRateId());
             lookup.insertTransactionHistory(ref, transactionOb.getAcctref(), constant.PAYTYPE_OTHER, constant.VENDREQ, constant.TXN_PENDING, repCount, ipay.getTime());
 
 
@@ -230,11 +235,8 @@ public class AfrinnovaElectric {
 
         payType.setValue(constant.IPAY_PAYTYPE);
         amt.setCur(constant.IPAY_DEFAULT_CURRENCY);
-        try {
-            amt.setValue(dualCurrency.convert(transactionOb.getAmount()));
-        } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(AfrinnovaElectric.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        amt.setValue(convertedAmount);
+
         VendReq vendReq = new VendReq();
         vendReq.setAmt(amt);
         vendReq.setNumTokens(1);

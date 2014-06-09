@@ -131,6 +131,7 @@ public class FundamoPayment implements IFundamoPayment {
 
                             } else {
                                 statusMessage = retrieveResponseDescription(responseCode);
+                                look.updateTransactionHistory(vendRes.getRef(), constant.TXN_FAILED);
                             }
                         } else {
                             VendRevRes vendRevRes = ipay.getElecMsg().getVendRevRes();

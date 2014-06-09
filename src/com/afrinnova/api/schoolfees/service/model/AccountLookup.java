@@ -40,6 +40,7 @@ public class AccountLookup {
     public static String sPassword = null;
     public static String sURL = null;
     public static String propsFilePath = null;
+    private int exchangeRateId = 0;
     private static final Logger logger = Logger.getLogger(AccountLookup.class);
     private Constants constant = new Constants();
     private AfrinnovaElectric ae = new AfrinnovaElectric();
@@ -101,6 +102,14 @@ public class AccountLookup {
         return DriverManager.getConnection(sURL, sUserName, sPassword);
     }
 
+    public int getExchangeRateId() {
+        return exchangeRateId;
+    }
+
+    public void setExchangeRateId(int exchangeRateId) {
+        this.exchangeRateId = exchangeRateId;
+    }
+
     public String generateReferencenNumber(int length) {
         // random PIN number
         String transactionId = "";
@@ -154,6 +163,7 @@ public class AccountLookup {
             TransactionOb txn = new TransactionOb();
             while (rs.next()) {
                 rate = rs.getDouble("lsd_value");
+                setExchangeRateId(rs.getInt("id"));
             }
 
             c.close();
@@ -413,7 +423,7 @@ public class AccountLookup {
 
     }
 
-    public synchronized void insertTransaction(String payerAccountIdentifier, String customerName, String accountRef, double amount, String paymentRef, String fundamoTransactionID, String thirdPartyTransactionID, String statusCode) throws AccountDAOException, IOException {
+    public synchronized void insertTransaction(String payerAccountIdentifier, String customerName, String accountRef, double amount, String paymentRef, String fundamoTransactionID, String thirdPartyTransactionID, String statusCode,int exchangeRateId) throws AccountDAOException, IOException {
 
         int serno;
         serno = 1;
@@ -454,6 +464,7 @@ public class AccountLookup {
             ps.setString(7, fundamoTransactionID);
             ps.setString(8, statusCode);
             ps.setString(9, thirdPartyTransactionID);
+            ps.setInt(9, exchangeRateId);
             //   ps.setNull(9, java.sql.Types.VARCHAR);
 
             int transactions = ps.executeUpdate();
