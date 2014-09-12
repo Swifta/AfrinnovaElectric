@@ -1,10 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-
-
-<root>
-    
-</root>
+<ipayMsg client="MTNLonestar" term="00001" seqNum="00049" time="2014-08-28 13:36:41 +0000">
+    <elecMsg ver="2.37" finAdj="-1144">
+        <vendRes supGrpRef="600298" tariffIdx="01" keyRevNum="1" tokenTechCode="02" algCode="07">
+            <ref>923437361592</ref>
+            <res code="elec000">OK</res>
+            <util addr="Waterside" taxRef="" distId="1234567890123">Liberia Electricity Corperation</util>
+            <tariff>LECTARIFF</tariff>
+            <stdToken units="20.6" amt="1070" tax="74" desc="General TaxRes Step 0" rctNum="EVG3EMDB820459">62216174270813136646</stdToken>
+            <customerMsg>Credit Vend</customerMsg>
+        </vendRes>
+    </elecMsg>
+</ipayMsg>
+<ipayMsg client="MTNLonestar" term="00001" seqNum="01099" time="2014-08-28 09:49:44 +0000">
+    <elecMsg ver="2.37" finAdj="-843">
+        <vendRes supGrpRef="600298" tariffIdx="01" keyRevNum="1" tokenTechCode="02" algCode="07">
+            <ref>594374060464</ref>
+            <res code="elec000">OK</res>
+            <util addr="Waterside" taxRef="" distId="1234567890123">Liberia Electricity Corperation</util>
+            <tariff>LECTARIFF</tariff>
+            <stdToken units="15.2" amt="788" tax="55" desc="General TaxRes Step 0" rctNum="EVG3EMDB820002">42043538308712170262</stdToken>
+            <customerMsg>Credit Vend</customerMsg>
+        </vendRes>
+    </elecMsg>
+</ipayMsg>
+IpayMsg{client=MTNLonestar, time=2014-08-28 09:49:44 +0000, termAuthId=null, term=00001, seqNum=01099, elecMsg=ElecMsg{ver=2.37, finAdj=null, vendReq=null, custInfoReq=null, custInfoRes=null, vendRes=VendRes{ref=594374060464, rtlrMsg=null, customerMsg=Credit Vend, invMsg=null, supGrpRef=null, tokenTechCode=null, algCode=null, tariffIdx=null, res=Res{code=elec000, extCode=null, value=OK}, util=Util{addr=Waterside, taxRef=, distId=1234567890123, value=Liberia Electricity Corperation}, bsstToken=null, stdToken=[StdToken{units=15.2, amt=788.0, tax=55.0, rctNum=EVG3EMDB820002, value=42043538308712170262, tariff=null, desc=General TaxRes Step 0, msg=null, expDate=null}], debt=null, fixed=null}, vendLastReq=null, vendRevReq=null, vendRevRes=null, vendAdvReq=null, vendAdvRes=null, trialVendReq=null, trialVendRes=null}}
+<ipayMsg client="MTNLonestar" term="00001" seqNum="01101" time="2014-08-28 09:51:30 +0000">
+    <elecMsg ver="2.37" finAdj="-15662">
+        <vendRes supGrpRef="600298" tariffIdx="01" keyRevNum="1" tokenTechCode="02" algCode="07">
+            <ref>878315654896</ref>
+            <res code="elec000">OK</res>
+            <util addr="Waterside" taxRef="" distId="1234567890123">Liberia Electricity Corperation</util>
+            <tariff>LECTARIFF</tariff>
+            <stdToken units="281.5" amt="14638" tax="1024" desc="General TaxRes Step 0" rctNum="EVG3EMDB820013">50355980058757164133</stdToken>
+            <rtlrMsg>The meter installation date is prior to the connection point's installation date.</rtlrMsg>
+            <customerMsg>The meter installation date is prior to the connection point's installation date. Please contact the utility for further information.</customerMsg>
+        </vendRes>
+    </elecMsg>
+</ipayMsg>
+IpayMsg{
+client=MTNLonestar, time=2014-08-28 09:51:30 +0000, termAuthId=null, term=00001, seqNum=01101, 
+elecMsg=ElecMsg{
+ver=2.37, finAdj=null, vendReq=null, custInfoReq=null, custInfoRes=null, 
+vendRes=VendRes{
+ref=878315654896, rtlrMsg=The meter installation date is prior to the connection point's installation date., customerMsg=The meter installation date is prior to the connection point's installation date. Please contact the utility for further information., invMsg=null, supGrpRef=null, tokenTechCode=null, algCode=null, tariffIdx=null, 
+res=Res{
+code=elec000, extCode=null, value=OK}, 
+util=Util{
+addr=Waterside, taxRef=, distId=1234567890123, value=Liberia Electricity Corperation}, bsstToken=null, 
+stdToken=[StdToken{units=281.5, amt=14638.0, tax=1024.0, rctNum=EVG3EMDB820013, value=50355980058757164133, tariff=null, desc=General TaxRes Step 0, msg=null, expDate=null}], debt=null, fixed=null}, vendLastReq=null, vendRevReq=null, vendRevRes=null, vendAdvReq=null, vendAdvRes=null, trialVendReq=null, trialVendRes=null}}

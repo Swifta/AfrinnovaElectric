@@ -114,26 +114,34 @@ public class FundamoPayment implements IFundamoPayment {
                 SendSubscriberToken sendSubToken = new SendSubscriberToken();
                 if (ipay != null) {
                     if (ipay.getElecMsg() != null) {
+                        logger.info("ElecMSG is not null......");
                         VendRes vendRes = ipay.getElecMsg().getVendRes();
                         if (vendRes != null) {
+                            logger.info("VendRes is not null........");
                             responseCode = vendRes.getRes().getCode();
                             extCode = vendRes.getRes().getExtCode();
                             if (responseCode.equalsIgnoreCase(constant.STATUS_OK)) {
+                                logger.info("Response code is OK..");
                                 List<StdToken> stdTokens = vendRes.getStdToken();
                                 if (stdTokens != null) {
                                     StdToken stdToken = stdTokens.iterator().next();
                                     if (stdToken != null) {
+                                        logger.info("TOKEN is not NULL.......");
                                         statusMessage += ":" + stdToken.getValue();
                                         look.insertSmsLog(vendRes.getRef(), stdToken.getValue(), payerAccountIdentifier, sendSubToken.sendToken(numberUtilities.format(amount / 100), stdToken.getValue(), fundamoTransactionID, payerAccountIdentifier));
                                         look.updateTransactionHistory(vendRes.getRef(), constant.TXN_COMPLETE);
                                     }
+                                } else {
+                                    logger.info("Token is NULL==========");
                                 }
 
                             } else {
+                                logger.info("The Response code is " + responseCode);
                                 statusMessage = retrieveResponseDescription(responseCode);
                                 look.updateTransactionHistory(vendRes.getRef(), constant.TXN_FAILED);
                             }
                         } else {
+                            logger.info("Checking if its a vend reversal........");
                             VendRevRes vendRevRes = ipay.getElecMsg().getVendRevRes();
                             if (vendRevRes != null) {
                                 vendRes = vendRevRes.getVendRes();
@@ -158,7 +166,11 @@ public class FundamoPayment implements IFundamoPayment {
                                 }
                             }
                         }
+                    } else {
+                        logger.info("ELECMSG is null....after confirmation");
                     }
+                } else {
+                    logger.info("IPAY is null.....after confirmation");
                 }
             }
 

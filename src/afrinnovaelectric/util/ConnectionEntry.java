@@ -13,9 +13,22 @@ import afrinnovaelectric.AfrinnovaElectric;
 public class ConnectionEntry {
 
     private AfrinnovaElectric afrinnovaElectric = null;
+    private String responseFromItron = null;
 
     public ConnectionEntry(AfrinnovaElectric afrinnovaElectric) {
         this.afrinnovaElectric = afrinnovaElectric;
+    }
+
+    public ConnectionEntry(String responseFromItron) {
+        this.responseFromItron = responseFromItron;
+    }
+
+    public String getResponseFromItron() {
+        return responseFromItron;
+    }
+
+    public void setResponseFromItron(String responseFromItron) {
+        this.responseFromItron = responseFromItron;
     }
 
     public AfrinnovaElectric getAfrinnovaElectric() {

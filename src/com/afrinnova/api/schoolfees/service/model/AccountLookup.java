@@ -81,6 +81,8 @@ public class AccountLookup {
             if (os.startsWith("sun")) {
 
                 propsFilePath = "/opt/swifta/server/properties/afrinnovadatabase.properties";
+            } else if (os.startsWith("mac")) {
+                propsFilePath = "/Users/user/NetBeansProjects/AfrinnovaElectric/afrinnovadatabase.properties";
             } else {
                 propsFilePath = "C:\\PropertyFiles\\afrinnovadatabase.properties";
             }
@@ -423,7 +425,7 @@ public class AccountLookup {
 
     }
 
-    public synchronized void insertTransaction(String payerAccountIdentifier, String customerName, String accountRef, double amount, String paymentRef, String fundamoTransactionID, String thirdPartyTransactionID, String statusCode,int exchangeRateId) throws AccountDAOException, IOException {
+    public synchronized void insertTransaction(String payerAccountIdentifier, String customerName, String accountRef, double amount, String paymentRef, String fundamoTransactionID, String thirdPartyTransactionID, String statusCode, int exchangeRateId) throws AccountDAOException, IOException {
 
         int serno;
         serno = 1;

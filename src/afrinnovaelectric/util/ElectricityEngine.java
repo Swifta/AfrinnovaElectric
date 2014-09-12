@@ -125,6 +125,7 @@ public class ElectricityEngine {
 
         Socket socket = null;
         try {
+            logger.info(ipAddress + ":" + portNumber);
             socket = new Socket(ipAddress, portNumber);
 
             //     socket = new SSLSocket(ipAddress, portNumber);

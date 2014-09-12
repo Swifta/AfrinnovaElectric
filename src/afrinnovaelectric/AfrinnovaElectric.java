@@ -8,6 +8,7 @@ import afrinnovaelectric.util.ConnectionEntry;
 import afrinnovaelectric.util.ConnectionQueue;
 import afrinnovaelectric.util.DualCurrency;
 import afrinnovaelectric.util.ElectricityEngineManager;
+import afrinnovaelectric.util.ResponseQueue;
 import com.afrinnova.api.schoolfees.service.exception.AccountDAOException;
 import com.afrinnova.api.schoolfees.service.model.AccountLookup;
 import com.afrinnova.api.schoolfees.service.model.TransactionOb;
@@ -48,6 +49,9 @@ public class AfrinnovaElectric {
     private String origTime = null, responseFromServer = null, dataRetrieved = null;
     private DateUtilities du = new DateUtilities();
     private static final Logger logger = Logger.getLogger(AfrinnovaElectric.class);
+    private boolean responseRetrieved = false;
+    private AfrinnovaElectric afrinnovaElectric = null;
+    private String currentRefNumber = "";
     DecimalFormat decimalFormat = new DecimalFormat("00000");
 
     public AfrinnovaElectric() {
@@ -102,18 +106,32 @@ public class AfrinnovaElectric {
     }
 
     public String sendData(String data, String ref, int timeout) throws InterruptedException {
+        setResponseRetrieved(false);
+        //   String responseFromItron = "";
         ElectricityEngineManager electricityEngineManager = ElectricityEngineManager.getInstance();;
         // SSLSocket socket = electricityEngineManager.getConnection(constant.IPAY_CLIENT);
-        logger.info("==================================system directory==============================================" + System.getProperty("user.dir"));
-        ConnectionEntry connectionEntry = new ConnectionEntry(this);
+        logger.info(responseRetrieved + "==================================system directory==============================================" + System.getProperty("user.dir"));
+        setAfrinnovaElectric(this);
+        AfrinnovaElectric af = getAfrinnovaElectric();
+        ConnectionEntry connectionEntry = new ConnectionEntry(af);
         this.dataRetrieved = data;
         this.timeoutRetrieved = timeout;
+        this.currentRefNumber = ref;
         ConnectionQueue.getInstance().queueAndRetrieveConnection(connectionEntry);
-        synchronized (this) {
-            this.wait();
+
+        synchronized (af) {
+            af.wait();
         };
-        logger.info("After sync ... " + this.responseFromServer);
+        //   ConnectionEntry responseConnectionEntry = new ConnectionEntry(ref);
+        //  responseFromItron = ResponseQueue.getInstance().retrieveResponse(responseConnectionEntry);
+       /* while (!isResponseRetrieved()) {
+         //logger.info("Waiting for response from >>>>>>>>>>>" + ref);
+         //    System.out.println(threadName+" Waiting for response!!!!!<<<<<<<<>>>>>>>>" + counter++);
+         }
+         */
+        logger.info(ref + " " + isResponseRetrieved() + ">>>>>After sync ... " + this.responseFromServer);
         return responseFromServer;
+        //   return responseFromItron;
     }
 
     public void finalizeResponse(Socket socket) {
@@ -159,11 +177,15 @@ public class AfrinnovaElectric {
                 logger.debug(ex1.getMessage());
             }
         }
-        logger.info("after notifying this.........." + response);
+        AfrinnovaElectric af = getAfrinnovaElectric();
+        logger.info(this.currentRefNumber + ">>>>>>>>>>>>after notifying this.........." + response);
+        //   ConnectionEntry connectionEntry = new ConnectionEntry(response);
+        //  ResponseQueue.getInstance().addToQueue(connectionEntry);
+        logger.info(this.currentRefNumber + ">>>>>>>>>>>>after notifying this.........." + response);
         this.responseFromServer = response;
-        synchronized (this) {
-            this.notifyAll();
-
+        //      setResponseRetrieved(true);
+        synchronized (af) {
+            af.notify();
         }
 
     }
@@ -190,6 +212,7 @@ public class AfrinnovaElectric {
 
         ipay.getElecMsg().setCustInfoReq(customerInfoReq);
         try {
+            logger.info("BEFORE UNMARSHALLING FOR CUSTOMER INFO REQ>>>>" + ref);
             return unMarshal(sendData(marshalRequest(ipay), ref, constant.TIMEOUT));
         } catch (JAXBException ex) {
             ex.printStackTrace();
@@ -214,7 +237,7 @@ public class AfrinnovaElectric {
         }
         try {
             //send request
-            logger.info("inserting transactions....");
+            logger.info("inserting transactions...." + ref);
             lookup.insertTransaction(transactionOb.getPayerAccountIdentifier(), transactionOb.getCustomerName(), transactionOb.getAcctref(), transactionOb.getAmount(), transactionOb.getPaymentRef(), transactionOb.getFundamoTransactionID(), ref, transactionOb.getStatuscode(), lookup.getExchangeRateId());
             lookup.insertTransactionHistory(ref, transactionOb.getAcctref(), constant.PAYTYPE_OTHER, constant.VENDREQ, constant.TXN_PENDING, repCount, ipay.getTime());
 
@@ -247,6 +270,7 @@ public class AfrinnovaElectric {
 
         ipay.getElecMsg().setVendReq(vendReq);
         try {
+            logger.info("BEFORE UNMARSHALLING FOR SIMPLE VEND REQ>>>>" + ref);
             return unMarshal(sendData(marshalRequest(ipay), ref, constant.TIMEOUT));
         } catch (JAXBException ex) {
             ex.printStackTrace();
@@ -294,10 +318,13 @@ public class AfrinnovaElectric {
             ipay = (IpayMsg) jaxbUnmarshaller.unmarshal(new ByteArrayInputStream(xml.getBytes()));
 
             System.out.println(ipay);
+            logger.info("New patch breakpoint>>>>>>>>");
         } catch (JAXBException e) {
+            logger.info("ERROR OCCURED WHILE UNMARSHALLING XML" + e.toString());
+            logger.error(e.getMessage());
             e.printStackTrace();
         }
-
+        logger.info("New patch breakpoint>>>>>> BEFORE RETURNING IPAY");
         return ipay;
 
     }
@@ -414,5 +441,21 @@ public class AfrinnovaElectric {
         ipay.setTerm(constant.IPAY_TERM);
         ipay.setTime(du.formatDateToString(new Date(), "yyyy-MM-dd hh:mm:ss Z"));
         return ipay;
+    }
+
+    public boolean isResponseRetrieved() {
+        return responseRetrieved;
+    }
+
+    public void setResponseRetrieved(boolean responseRetrieved) {
+        this.responseRetrieved = responseRetrieved;
+    }
+
+    public AfrinnovaElectric getAfrinnovaElectric() {
+        return afrinnovaElectric;
+    }
+
+    public void setAfrinnovaElectric(AfrinnovaElectric afrinnovaElectric) {
+        this.afrinnovaElectric = afrinnovaElectric;
     }
 }

@@ -80,7 +80,8 @@ public class SendSubscriberToken {
         }
     }
 
-    public static String getSmsTemplate(String value, String tokens, String mmTxnId) {
+    public String getSmsTemplate(String value, String tokens, String mmTxnId) {
+        logger.info("Getting SMS template......");
         Properties props = new Properties();
         props.put("resource.loader", "class");
         props.put("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
@@ -115,7 +116,8 @@ public class SendSubscriberToken {
 
 
         Message msg = new Message();
-        msg.setDestination(new CountryCode().formatLiberiaCountryCode(destination));
+     //   msg.setDestination(new CountryCode().formatLiberiaCountryCode(destination));
+        msg.setDestination(destination);
         msg.setMessage(message);
         msg.setMessageID(0);
 
