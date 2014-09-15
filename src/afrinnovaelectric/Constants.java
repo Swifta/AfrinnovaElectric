@@ -32,6 +32,7 @@ public class Constants {
     public final String IPAY_TERM_ESKOMO="00300";
     public final int REFNO_LENGTH = 12;
     public final int TIMEOUT = 30000;
+    public final int BUFFER_SOCKET_TIMEOUT = 10000;
     public final int REV_TIMEOUT=30000;
     
     //SOCKET CONNECTION

@@ -22,6 +22,7 @@ public class ConnectionEntry {
     public ConnectionEntry(String responseFromItron) {
         this.responseFromItron = responseFromItron;
     }
+  
 
     public String getResponseFromItron() {
         return responseFromItron;

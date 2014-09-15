@@ -1,4 +1,3 @@
-
 package afrinnovaelectric.util;
 
 import afrinnovaelectric.Constants;
@@ -32,6 +31,10 @@ public class ResponseQueue {
         this.queue.add(entry);
     }
 
+    public void removeFromQueue(ConnectionEntry entry) {
+        this.queue.remove(entry);
+    }
+
     public ConnectionEntry pullFromQueue() throws InterruptedException {
         return this.queue.take();
     }
@@ -55,9 +58,9 @@ public class ResponseQueue {
     }
 
     public String retrieveResponse(ConnectionEntry connectionEntry) {
-        
+
         String response = "";
-       // queue.
+        // queue.
         logger.info("=======================THREAD==================" + threadCount);
         if (!startThread) {
             logger.info("Thread starting for the first time....");

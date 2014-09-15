@@ -35,6 +35,10 @@ public class ConnectionQueue {
         return this.queue.take();
     }
 
+    public boolean dataExists(ConnectionEntry entry) {
+        return getQueue().contains(entry);
+    }
+
     private ConnectionQueue() {
     }
 

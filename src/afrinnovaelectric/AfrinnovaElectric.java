@@ -23,6 +23,8 @@ import java.net.SocketTimeoutException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.logging.Level;
 
 import javax.xml.bind.JAXBContext;
@@ -117,11 +119,40 @@ public class AfrinnovaElectric {
         this.dataRetrieved = data;
         this.timeoutRetrieved = timeout;
         this.currentRefNumber = ref;
-        ConnectionQueue.getInstance().queueAndRetrieveConnection(connectionEntry);
+        ConnectionQueue con = ConnectionQueue.getInstance();
+        con.queueAndRetrieveConnection(connectionEntry);
+        logger.info("Before checking if the connection entry has been forwarded to ITRON");
+        while (con.dataExists(connectionEntry)) {
+        }
+        logger.info("After connection has been forwarded.....");
+        int sleepTime = constant.TIMEOUT + constant.BUFFER_SOCKET_TIMEOUT;
+        Thread.sleep(sleepTime);
+        logger.info("After sleeping for " + sleepTime);
+        ResponseQueue respQueue = ResponseQueue.getInstance();
+        logger.info("Queue size is >>>>>>>>" + respQueue.getQueue().size());
 
-        synchronized (af) {
-            af.wait();
-        };
+        ArrayBlockingQueue<ConnectionEntry> respArray = respQueue.getQueue();
+        Iterator<ConnectionEntry> it = respArray.iterator();
+        while (it.hasNext()) {
+            ConnectionEntry newConnectionEntry = it.next();
+            if (newConnectionEntry != null) {
+                String response = newConnectionEntry.getResponseFromItron();
+                if (response.contains(ref)) {
+                    this.responseFromServer = response;
+                    respQueue.removeFromQueue(newConnectionEntry);
+                    break;
+                } else {
+                    logger.info("Iterator doesn't containt the ref" + ref);
+                }
+            } else {
+                logger.info("Iterator for connection entry is null");
+            }
+            //    System.out.println(it.next());
+        }
+        logger.info("Queue size is <<<<<<<<<<<<" + respQueue.getQueue().size());
+        //   synchronized (af) {
+        //      af.wait();
+        //  };
         //   ConnectionEntry responseConnectionEntry = new ConnectionEntry(ref);
         //  responseFromItron = ResponseQueue.getInstance().retrieveResponse(responseConnectionEntry);
        /* while (!isResponseRetrieved()) {
@@ -179,14 +210,14 @@ public class AfrinnovaElectric {
         }
         AfrinnovaElectric af = getAfrinnovaElectric();
         logger.info(this.currentRefNumber + ">>>>>>>>>>>>after notifying this.........." + response);
-        //   ConnectionEntry connectionEntry = new ConnectionEntry(response);
-        //  ResponseQueue.getInstance().addToQueue(connectionEntry);
+        ConnectionEntry connectionEntry = new ConnectionEntry(response);
+        ResponseQueue.getInstance().addToQueue(connectionEntry);
         logger.info(this.currentRefNumber + ">>>>>>>>>>>>after notifying this.........." + response);
-        this.responseFromServer = response;
+        //  this.responseFromServer = response;
         //      setResponseRetrieved(true);
-        synchronized (af) {
-            af.notify();
-        }
+        // synchronized (af) {
+        //     af.notify();
+        // }
 
     }
 
