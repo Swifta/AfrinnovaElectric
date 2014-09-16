@@ -306,9 +306,10 @@ public class AccountLookup {
             c = getConnection();
 
             logger.info("selecting pending transactions" + referenceNo);
-            ps = c.prepareStatement("select * from transaction_history where transaction_type = ? and status = ? and meter_no = ?");
+            ps = c.prepareStatement("select * from transaction_history where transaction_type = ? and status = ? and meter_no = ?  and timestampdiff(SECOND,date_created,now()) <= ? AND timestampdiff(SECOND,date_created,now()) > 0");
             ps.setString(1, constant.VENDREQ);
             ps.setString(2, constant.TXN_PENDING);
+            ps.setInt(2, constant.VEND_PENDING_RETRIAL_INTERVAL);
             ps.setString(3, referenceNo);
 
             //   pendingStatus = ps.execute();

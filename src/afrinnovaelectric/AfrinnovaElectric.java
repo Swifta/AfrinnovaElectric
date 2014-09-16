@@ -126,30 +126,40 @@ public class AfrinnovaElectric {
         }
         logger.info("After connection has been forwarded.....");
         int sleepTime = constant.TIMEOUT + constant.BUFFER_SOCKET_TIMEOUT;
-        Thread.sleep(sleepTime);
-        logger.info("After sleeping for " + sleepTime);
-        ResponseQueue respQueue = ResponseQueue.getInstance();
-        logger.info("Queue size is >>>>>>>>" + respQueue.getQueue().size());
+        int newSleepTime = 1000;
+        int count = 0;
+        while (true) {
+            count++;
+            Thread.sleep(newSleepTime);
+            logger.info("After sleeping for " + sleepTime);
+            ResponseQueue respQueue = ResponseQueue.getInstance();
+            logger.info("Queue size is >>>>>>>>" + respQueue.getQueue().size());
 
-        ArrayBlockingQueue<ConnectionEntry> respArray = respQueue.getQueue();
-        Iterator<ConnectionEntry> it = respArray.iterator();
-        while (it.hasNext()) {
-            ConnectionEntry newConnectionEntry = it.next();
-            if (newConnectionEntry != null) {
-                String response = newConnectionEntry.getResponseFromItron();
-                if (response.contains(ref)) {
-                    this.responseFromServer = response;
-                    respQueue.removeFromQueue(newConnectionEntry);
-                    break;
+            ArrayBlockingQueue<ConnectionEntry> respArray = respQueue.getQueue();
+            Iterator<ConnectionEntry> it = respArray.iterator();
+            while (it.hasNext()) {
+                ConnectionEntry newConnectionEntry = it.next();
+                if (newConnectionEntry != null) {
+                    String response = newConnectionEntry.getResponseFromItron();
+                    if (response.contains(ref)) {
+                        this.responseFromServer = response;
+                        respQueue.removeFromQueue(newConnectionEntry);
+                        count = 30;
+                        break;
+                    } else {
+                        logger.info("Iterator doesn't containt the ref" + ref);
+                    }
                 } else {
-                    logger.info("Iterator doesn't containt the ref" + ref);
+                    logger.info("Iterator for connection entry is null");
                 }
-            } else {
-                logger.info("Iterator for connection entry is null");
+                //    System.out.println(it.next());
             }
-            //    System.out.println(it.next());
+            if (count >= 30) {
+                break;
+            }
+
+            logger.info("Queue size is <<<<<<<<<<<<" + respQueue.getQueue().size());
         }
-        logger.info("Queue size is <<<<<<<<<<<<" + respQueue.getQueue().size());
         //   synchronized (af) {
         //      af.wait();
         //  };
