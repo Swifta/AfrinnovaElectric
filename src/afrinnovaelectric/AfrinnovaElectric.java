@@ -109,6 +109,7 @@ public class AfrinnovaElectric {
 
     public String sendData(String data, String ref, int timeout) throws InterruptedException {
         setResponseRetrieved(false);
+        String newResponseFromServer = "";
         //   String responseFromItron = "";
         ElectricityEngineManager electricityEngineManager = ElectricityEngineManager.getInstance();;
         // SSLSocket socket = electricityEngineManager.getConnection(constant.IPAY_CLIENT);
@@ -128,10 +129,11 @@ public class AfrinnovaElectric {
         int sleepTime = constant.TIMEOUT + constant.BUFFER_SOCKET_TIMEOUT;
         int newSleepTime = 1000;
         int count = 0;
+        int loopingTime = 60;
         while (true) {
             count++;
             Thread.sleep(newSleepTime);
-            logger.info("After sleeping for " + sleepTime);
+            logger.info(count + " After sleeping for " + sleepTime);
             ResponseQueue respQueue = ResponseQueue.getInstance();
             logger.info("Queue size is >>>>>>>>" + respQueue.getQueue().size());
 
@@ -142,11 +144,15 @@ public class AfrinnovaElectric {
                 if (newConnectionEntry != null) {
                     String response = newConnectionEntry.getResponseFromItron();
                     if (response.contains(ref)) {
-                        this.responseFromServer = response;
+                        //this.responseFromServer = response;
+                        newResponseFromServer = response;
                         respQueue.removeFromQueue(newConnectionEntry);
-                        count = 30;
+                        count = loopingTime;
                         break;
                     } else {
+                        if (count >= loopingTime) {
+                            logger.info("REFERENCES IN QUEUE::::::::::>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + response);
+                        }
                         logger.info("Iterator doesn't containt the ref" + ref);
                     }
                 } else {
@@ -154,7 +160,7 @@ public class AfrinnovaElectric {
                 }
                 //    System.out.println(it.next());
             }
-            if (count >= 30) {
+            if (count >= loopingTime) {
                 break;
             }
 
@@ -170,8 +176,9 @@ public class AfrinnovaElectric {
          //    System.out.println(threadName+" Waiting for response!!!!!<<<<<<<<>>>>>>>>" + counter++);
          }
          */
-        logger.info(ref + " " + isResponseRetrieved() + ">>>>>After sync ... " + this.responseFromServer);
-        return responseFromServer;
+        logger.info(ref + " " + isResponseRetrieved() + ">>>>>After sync ... " + newResponseFromServer);
+        //  return responseFromServer;
+        return newResponseFromServer;
         //   return responseFromItron;
     }
 
@@ -356,7 +363,11 @@ public class AfrinnovaElectric {
             JAXBContext jaxbContext = JAXBContext.newInstance(IpayMsg.class);
 
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            ipay = (IpayMsg) jaxbUnmarshaller.unmarshal(new ByteArrayInputStream(xml.getBytes()));
+            if (xml != null) {
+                ipay = (IpayMsg) jaxbUnmarshaller.unmarshal(new ByteArrayInputStream(xml.getBytes()));
+            } else {
+                logger.info("XML is NULL>>>>>>>>>>>>>>");
+            }
 
             System.out.println(ipay);
             logger.info("New patch breakpoint>>>>>>>>");
