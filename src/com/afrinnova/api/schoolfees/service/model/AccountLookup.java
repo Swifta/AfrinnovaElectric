@@ -80,7 +80,7 @@ public class AccountLookup {
 
             if (os.startsWith("sun")) {
 
-                propsFilePath = "/opt/swifta/server/properties/afrinnovadatabase.properties";
+                propsFilePath = "/opt/swifta/server/properties/testafrinnovadatabase.properties";
             } else if (os.startsWith("mac")) {
                 propsFilePath = "/Users/user/NetBeansProjects/AfrinnovaElectric/afrinnovadatabase.properties";
             } else {
