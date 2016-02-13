@@ -17,6 +17,8 @@ import org.apache.log4j.Logger;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.exception.ParseErrorException;
+import org.apache.velocity.exception.ResourceNotFoundException;
 import org.json.me.JSONException;
 import org.json.me.JSONObject;
 
@@ -80,7 +82,7 @@ public class SendSubscriberToken {
         }
     }
 
-    public String getSmsTemplate(String value, String tokens, String mmTxnId) {
+    public String getSmsTemplate(String value, String tokens, String mmTxnId) throws ResourceNotFoundException, ParseErrorException, Exception {
         logger.info("Getting SMS template......");
         Properties props = new Properties();
         props.put("resource.loader", "class");
@@ -116,8 +118,8 @@ public class SendSubscriberToken {
 
 
         Message msg = new Message();
-     //   msg.setDestination(new CountryCode().formatLiberiaCountryCode(destination));
-        msg.setDestination(destination);
+        msg.setDestination(new CountryCode().formatLiberiaCountryCode(destination));
+        //msg.setDestination(destination);
         msg.setMessage(message);
         msg.setMessageID(0);
 

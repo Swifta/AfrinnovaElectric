@@ -1,26 +1,12 @@
 package afrinnovaelectric.util;
 
 import afrinnovaelectric.Constants;
-import static afrinnovaelectric.util.HttpClient.trustStore;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.security.GeneralSecurityException;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.Security;
-import java.security.cert.CertificateException;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Vector;
-import java.util.logging.Level;
-import javax.net.ssl.SSLSocket;
-import javax.net.ssl.SSLSocketFactory;
-import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.ssl.KeyMaterial;
-import org.apache.commons.ssl.SSLClient;
-import org.apache.commons.ssl.TrustMaterial;
 import org.apache.log4j.Logger;
 
 /*

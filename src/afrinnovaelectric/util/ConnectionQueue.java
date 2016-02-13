@@ -64,7 +64,7 @@ public class ConnectionQueue {
         if (!startThread) {
             logger.info("Thread starting for the first time....");
             ++threadCount;
-            if (threadCount >= 10) {
+            if (threadCount >= 15) {
                 startThread = true;
             }
             ConnectionTreeUpdater conUpdater = new ConnectionTreeUpdater();

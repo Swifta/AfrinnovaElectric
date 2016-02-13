@@ -4,13 +4,8 @@
  */
 package scheduler;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
-import org.quartz.CronExpression;
 import org.quartz.CronScheduleBuilder;
 import static org.quartz.JobBuilder.*;
 import org.quartz.Scheduler;
@@ -24,7 +19,7 @@ public class QuartzTest {
 
     static final Logger logger = Logger.getLogger(QuartzTest.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
 
         try {
             // Grab the Scheduler instance from the Factory 

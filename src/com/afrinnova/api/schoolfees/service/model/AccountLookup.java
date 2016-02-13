@@ -78,15 +78,17 @@ public class AccountLookup {
 
             logger.info("Operating System " + os);
 
-            if (os.startsWith("sun")) {
+//            if (os.startsWith("sun")) {
+//
+//                propsFilePath = "/opt/swifta/server/properties/testafrinnovadatabase.properties";
+//            } else if (os.startsWith("mac")) {
+//                propsFilePath = "/Users/user/NetBeansProjects/AfrinnovaElectric/afrinnovadatabase.properties";
+//            } else {
+//                propsFilePath = "C:\\PropertyFiles\\afrinnovadatabase.properties";
+//            }
 
-                propsFilePath = "/opt/swifta/server/properties/testafrinnovadatabase.properties";
-            } else if (os.startsWith("mac")) {
-                propsFilePath = "/Users/user/NetBeansProjects/AfrinnovaElectric/afrinnovadatabase.properties";
-            } else {
-                propsFilePath = "C:\\PropertyFiles\\afrinnovadatabase.properties";
-            }
-
+            propsFilePath = "/opt/swifta/server/properties/afrinnovadatabase.properties";
+            
             logger.info("**********Loading database properties");
 
             loadProperties(propsFilePath);

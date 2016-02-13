@@ -16,6 +16,13 @@ public class CountryCode {
 
     public String formatLiberiaCountryCode(String phoneNumber) {
 
-        return phoneNumber.replaceFirst("231", "0");
+        if (phoneNumber.startsWith("00")) {
+            return "+" + phoneNumber.substring(2);
+        }
+        if (phoneNumber.startsWith("+")) {
+            return phoneNumber;
+        }
+//        return phoneNumber.replaceFirst("231", "0");
+        return "+"+phoneNumber;
     }
 }

@@ -136,7 +136,7 @@ public class FundamoPayment implements IFundamoPayment {
                                 }
 
                             } else {
-                                logger.info("The Response code is " + responseCode);
+                                logger.log(Level.INFO, "The Response code is {0}", responseCode);
                                 statusMessage = retrieveResponseDescription(responseCode);
                                 look.updateTransactionHistory(vendRes.getRef(), constant.TXN_FAILED);
                             }
