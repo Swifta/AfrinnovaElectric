@@ -86,8 +86,11 @@ public class AccountLookup {
 //            } else {
 //                propsFilePath = "C:\\PropertyFiles\\afrinnovadatabase.properties";
 //            }
-
+            if (os.startsWith("mac")) {
             propsFilePath = "/opt/swifta/server/properties/afrinnovadatabase.properties";
+            }else{
+                propsFilePath = "/opt/swifta/server/properties/afrinnovadatabase.properties";
+            }
             
             logger.info("**********Loading database properties");
 
@@ -136,9 +139,9 @@ public class AccountLookup {
 
         try {
             c = getConnection();
-
+            
             ps = c.prepareStatement("select * from min_transaction order by datecreated desc limit 0,1");
-
+            
             ResultSet rs = ps.executeQuery();
             TransactionOb txn = new TransactionOb();
             while (rs.next()) {
@@ -409,6 +412,7 @@ public class AccountLookup {
             ps.setInt(9, repCount);
             ps.setString(10, origTime);
 
+            System.out.println(ps);
 
             int transactions = ps.executeUpdate();
 
@@ -471,7 +475,9 @@ public class AccountLookup {
             ps.setString(9, thirdPartyTransactionID);
             ps.setInt(9, exchangeRateId);
             //   ps.setNull(9, java.sql.Types.VARCHAR);
-
+            
+            System.out.println(ps);
+            
             int transactions = ps.executeUpdate();
 
             System.out.println(transactions + "rows affected");

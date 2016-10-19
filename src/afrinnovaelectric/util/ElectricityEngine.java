@@ -59,6 +59,10 @@ public class ElectricityEngine {
         }
         if (con != null) {
             checkedOut++;
+            if (checkedOut == maxConn){
+                logger.info("Maximum connection reached, resetting counter to 0");
+                checkedOut = 0;
+            }
         } else {
             logger.info("SSLSocket gotten is null......");
         }

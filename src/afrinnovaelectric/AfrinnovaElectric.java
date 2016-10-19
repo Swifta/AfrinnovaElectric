@@ -278,11 +278,11 @@ public class AfrinnovaElectric {
     public IpayMsg generateSimpleVendRequest(String ref, TransactionOb transactionOb, AccountLookup lookup) {
         IpayMsg ipay = initializeDefaultIpayMsg();
         Long convertedAmount = 0l;
-        try {
-            convertedAmount = dualCurrency.convert(transactionOb.getAmount());
-        } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(AfrinnovaElectric.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            try {
+                convertedAmount = dualCurrency.convert(transactionOb.getAmount());
+            } catch (SQLException ex) {
+                java.util.logging.Logger.getLogger(AfrinnovaElectric.class.getName()).log(Level.SEVERE, null, ex);
+            }
         try {
             //send request
             logger.info("inserting transactions...." + ref);
